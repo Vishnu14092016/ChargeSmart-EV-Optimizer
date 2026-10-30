@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChargeSmart | EV Charging Optimizer</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-icon">⚡</div><div><b>ChargeSmart</b><small>EV Station Optimizer</small></div></div>
+    <div class="nav-label">WORKSPACE</div>
+    <button class="nav active" data-page="overview">▦ <span>Overview</span></button>
+    <button class="nav" data-page="stations">⌖ <span>Find Stations</span></button>
+    <button class="nav" data-page="bookings">▣ <span>My Bookings</span></button>
+    <button class="nav" data-page="owner">⚙ <span>Owner Console</span></button>
+    <div class="nav-label system-label">SYSTEM</div>
+    <button class="nav" data-page="reports">▥ <span>Reports & Analytics</span></button>
+    <div class="sidebar-bottom"><span class="online-dot"></span><b>Optimizer online</b><p>Availability, cost and booking checks are ready.</p></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div><small>CHARGESMART / <span id="crumb">OVERVIEW</span></small><h3 id="page-title">EV Charging Dashboard</h3></div>
+      <div class="top-actions"><select id="viewSelect" aria-label="Choose dashboard view"><option value="driver">EV Driver View</option><option value="owner">Station Owner View</option></select><div class="avatar" id="avatar">EV</div></div>
+    </header>
+
+    <section class="page active-page" id="overview">
+      <div class="welcome"><div><h2>Good morning 👋</h2><p>Find a charger, compare prices, and book a smarter charging slot.</p></div><span class="date-pill">◷ Fri, 30 Oct, 2026</span></div>
+      <div class="stats four">
+        <article class="stat"><div class="stat-top">Stations nearby <span class="stat-icon blue">⌖</span></div><strong>6</strong><small><em>4 available now</em> in this demo network</small></article>
+        <article class="stat"><div class="stat-top">Average charging rate <span class="stat-icon mint">₹</span></div><strong>₹14.8<small>/kWh</small></strong><small>Compare prices before booking</small></article>
+        <article class="stat"><div class="stat-top">Estimated wait <span class="stat-icon purple">◷</span></div><strong>8 <small>min</small></strong><small>Based on sample charger status</small></article>
+        <article class="stat"><div class="stat-top">Your bookings <span class="stat-icon orange">▣</span></div><strong id="driverBookingCount">1</strong><small>Upcoming and completed sessions</small></article>
+      </div>
+      <div class="dashboard-grid">
+        <section class="panel station-panel">
+          <div class="panel-heading"><div><h3>Recommended charging stations</h3><p>Ranked by availability, estimated cost and distance</p></div><button class="link-btn" data-goto="stations">Reset filters ↗</button></div>
+          <div class="filters"><input id="stationSearch" placeholder="Search station or area..."><select id="statusFilter"><option value="all">All status</option><option value="available">Available</option><option value="busy">Busy</option></select><select id="sortFilter"><option value="recommended">Recommended</option><option value="price">Lowest price</option><option value="wait">Shortest wait</option></select></div>
+          <div id="stationList" class="station-list"></div>
+        </section>
+        <div class="right-stack">
+          <section class="panel activity-panel"><div class="panel-heading"><div><h3>Charging activity</h3><p>Sample demand by time of day</p></div><span class="live-pill">● Live demo</span></div>
+            <div class="chart" aria-label="Illustrative charging demand chart">
+              <div class="bar-wrap"><i style="height:45%"></i><small>8 AM</small></div><div class="bar-wrap"><i style="height:68%"></i><small>10 AM</small></div><div class="bar-wrap"><i style="height:55%"></i><small>12 PM</small></div><div class="bar-wrap"><i style="height:92%"></i><small>2 PM</small></div><div class="bar-wrap"><i style="height:76%"></i><small>4 PM</small></div><div class="bar-wrap"><i style="height:97%"></i><small>6 PM</small></div><div class="bar-wrap"><i style="height:63%"></i><small>8 PM</small></div>
+            </div><div class="chart-legend"><span>● Charging demand</span><span>Illustrative data</span></div>
+            <div class="mini-metrics"><div><small>Recommended slot</small><b>2:30 PM</b><small>Lower demand</small></div><div><small>Potential saving</small><b>₹42</b><small>vs. peak-rate slot</small></div></div>
+          </section>
+          <section class="panel how-panel"><div class="panel-heading"><div><h3>How the optimizer works</h3><p>One integrated booking process</p></div><b>✦</b></div>
+            <div class="step"><span class="step-icon mint">⌖</span><div><b>1. Check availability</b><small>Find compatible chargers and slots</small></div><span class="tag green">Ready</span></div>
+            <div class="step"><span class="step-icon orange">₹</span><div><b>2. Compare cost & wait</b><small>Estimate price and queue time</small></div><span class="tag amber">Optimize</span></div>
+            <div class="step"><span class="step-icon purple">✓</span><div><b>3. Book and confirm</b><small>Save reservation in this demo</small></div><span class="tag green">Confirm</span></div>
+            <div class="notice">Demo note: station availability, prices and payments are sample data. No real payment is collected.</div>
+          </section>
+        </div>
+      </div>
+      <section class="panel recent-panel"><div class="panel-heading"><div><h3>Recent bookings</h3><p>Your charging session history</p></div><button class="link-btn" data-goto="bookings">View all →</button></div><div class="table-scroll"><table><thead><tr><th>STATION</th><th>TIME SLOT</th><th>ENERGY</th><th>ESTIMATED COST</th><th>STATUS</th></tr></thead><tbody id="recentRows"></tbody></table></div></section>
+    </section>
+
+    <section class="page" id="stations"><div class="welcome"><div><h2>Find charging stations</h2><p>Search nearby demo stations and compare estimated wait and charging cost.</p></div></div><section class="panel"><div class="filters"><input id="stationSearch2" placeholder="Search station or area..."><select id="statusFilter2"><option value="all">All status</option><option value="available">Available</option><option value="busy">Busy</option></select><select id="sortFilter2"><option value="recommended">Recommended</option><option value="price">Lowest price</option><option value="wait">Shortest wait</option></select></div><div id="stationList2" class="station-list"></div></section></section>
+
+    <section class="page" id="bookings"><div class="welcome"><div><h2>My Bookings</h2><p>Review your charging reservations and estimated costs.</p></div></div><section class="panel"><div class="panel-heading"><div><h3>Charging session history</h3><p>Bookings created in this browser session</p></div></div><div class="table-scroll"><table><thead><tr><th>BOOKING ID</th><th>STATION</th><th>TIME SLOT</th><th>ENERGY</th><th>AMOUNT</th><th>STATUS</th></tr></thead><tbody id="bookingRows"></tbody></table></div></section></section>
+
+    <section class="page" id="owner"><div class="welcome"><div><h2>Welcome, Station Owner 👋</h2><p>Monitor chargers, manage bookings, and review station performance.</p></div><span class="date-pill">◷ Fri, 30 Oct, 2026</span></div>
+      <div class="stats four">
+        <article class="stat"><div class="stat-top">Total chargers <span class="stat-icon blue">⚡</span></div><strong id="totalChargers">18</strong><small>Across your demo stations</small></article>
+        <article class="stat"><div class="stat-top">Available now <span class="stat-icon mint">✓</span></div><strong id="availableChargers">10</strong><small><em>Ready for bookings</em></small></article>
+        <article class="stat"><div class="stat-top">Today's revenue <span class="stat-icon purple">₹</span></div><strong id="revenue">₹8,420</strong><small>Illustrative demo amount</small></article>
+        <article class="stat"><div class="stat-top">Utilization <span class="stat-icon orange">▥</span></div><strong id="utilization">44%</strong><small>Occupied chargers / total chargers</small></article>
+      </div>
+      <div class="owner-grid"><section class="panel"><div class="panel-heading"><div><h3>Charger management</h3><p>Monitor charger status and toggle availability</p></div><button class="primary small" id="addCharger">＋ Add charger</button></div><div id="chargerList" class="charger-list"></div><div class="notice">Changes are stored in this page session only. This prototype does not connect to real charging hardware.</div></section>
+      <section class="panel performance"><div class="panel-heading"><div><h3>Station performance</h3><p>Illustrative operating metrics</p></div></div><div class="performance-box"><small>Average charger utilization</small><b id="utilization2">44%</b><div class="progress"><i id="utilBar" style="width:44%"></i></div></div><div class="performance-box"><small>Bookings today</small><b id="ownerBookings">24</b><small>Across all demo chargers</small></div><div class="performance-box"><small>Estimated energy delivered</small><b>186 kWh</b><small>Sample daily total</small></div><div class="owner-actions"><button class="soft-btn" id="exportCsv">Export bookings CSV</button><button class="soft-btn" id="updatePricing">Update pricing</button></div></section></div>
+      <section class="panel owner-bookings"><div class="panel-heading"><div><h3>All station bookings</h3><p>Manage reservations from the owner console</p></div><span class="live-pill">Booking system active</span></div><div class="table-scroll"><table><thead><tr><th>BOOKING ID</th><th>DRIVER</th><th>STATION</th><th>SLOT</th><th>AMOUNT</th><th>STATUS</th></tr></thead><tbody id="ownerBookingRows"></tbody></table></div></section>
+    </section>
+
+    <section class="page" id="reports"><div class="welcome"><div><h2>Reports & Analytics</h2><p>Illustrative performance information for the demo charging network.</p></div></div><div class="stats three"><article class="stat"><div class="stat-top">Total demo stations</div><strong>6</strong><small>Sample network</small></article><article class="stat"><div class="stat-top">Energy delivered</div><strong>186 <small>kWh</small></strong><small>Illustrative daily total</small></article><article class="stat"><div class="stat-top">Average wait</div><strong>8 <small>min</small></strong><small>Estimated from sample queues</small></article></div><section class="panel"><h3>Optimization approach</h3><div class="report-row"><b>FCFS queue management</b><p>Vehicles are considered in arrival order. Waiting time is estimated from vehicles already ahead in the queue.</p></div><div class="report-row"><b>Cost comparison</b><p>Estimated charging cost = requested energy (kWh) × station price (₹/kWh).</p></div><div class="report-row"><b>Station recommendation</b><p>Stations are compared using availability, estimated waiting time, price and distance.</p></div><div class="notice">All dashboard figures and station records are illustrative sample data, not live infrastructure readings.</div></section></section>
+  </main>
+</div>
+<div class="modal-backdrop" id="modal"><div class="modal"><button class="modal-close" id="closeModal">×</button><h2>Book charging slot</h2><p id="modalStation">Selected station</p><label>Vehicle ID<input id="vehicleId" placeholder="e.g. EV-1024"></label><label>Energy required (kWh)<input id="energy" type="number" min="1" max="200" value="20"></label><div class="estimate" id="estimate">Estimated cost: ₹238</div><button class="primary full" id="confirmBooking">Confirm booking</button><small class="muted">Demo only — no payment is collected.</small></div></div>
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+</body></html>
